@@ -13,7 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - run: ls
+    - name: Install xmllint
+      run:  sudo apt-get -y install libgtest-dev
     - name: make
       run: make -f Makefile
     - name: make check
