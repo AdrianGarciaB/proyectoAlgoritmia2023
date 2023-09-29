@@ -1,4 +1,4 @@
-#include "kdtree.hh"
+#include "kdTree.hh"
 
 kdTree::kdTree(int k) {
     this->k = k;
