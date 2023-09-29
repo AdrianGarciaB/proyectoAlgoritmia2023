@@ -13,9 +13,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Install xmllint
+    - name: Install GTest lib
       run:  sudo apt-get -y install libgtest-dev
-    - name: make
+    - name: Compiling files
       run: make -f Makefile
-    - name: make check
+    - name: Run testing
       run: ./TestKDTree
