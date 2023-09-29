@@ -13,6 +13,6 @@ jobs:
 
     steps:
     - name: make
-      run: make -f Makefile
+      run: cd ../../ && make -f Makefile
     - name: make check
       run: ./TestKDTree
