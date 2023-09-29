@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: AdrianGarciaB/proyectoAlgoritmia2023@v1
     - name: make
       run: cd ../../ && make -f Makefile
     - name: make check
