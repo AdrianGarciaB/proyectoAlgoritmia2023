@@ -5,15 +5,22 @@
 #include <iostream>
 using namespace std;
 
+struct BoundingBox {
+    vector<double> minPoint;
+    vector<double> maxPoint;
+};
+
 struct Node {
     //int dim;
     vector<double> x/*(dim)*/;
 
     Node* left;
     Node* right;
+    BoundingBox bbox;
 
-    Node (const vector<double>& i, Node* l, Node* r):
+    Node (const vector<double>& i, Node* l, Node* r, BoundingBox& bbox):
         x(i), left(l), right(r) { }
+
 };
 
 class kdTree {
@@ -25,9 +32,13 @@ class kdTree {
 
         static void free(Node* p);
 
+        BoundingBox rootBoundingBox();
         Node* i_insert(Node*& root, const vector<double>& info, unsigned depth);
 
         static void i_inorder(Node* root);
+
+
+        Node* i_insertWithBoundingBox(Node*& root, const vector<double>& info, unsigned depth);
 
     public:
 
