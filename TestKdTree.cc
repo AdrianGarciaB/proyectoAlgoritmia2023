@@ -17,24 +17,24 @@ protected:
 };
 
 TEST_F(KDTreeTest, TestConstructor) {
-    EXPECT_TRUE(tree);
-    EXPECT_TRUE(tree->empty());
-    EXPECT_EQ(tree->valori(0), 0.0); // Asumiendo que un árbol vacío retorna 0.0 para cualquier coordenada.
+EXPECT_TRUE(tree);
+EXPECT_TRUE(tree->empty());
+EXPECT_EQ(tree->valori(0), -1); // Asumiendo que un árbol vacío retorna -1 para cualquier coordenada.
 }
 
 TEST_F(KDTreeTest, TestInsertAndInorder) {
-    EXPECT_TRUE(tree);
-    vector<double> point1 = {1.0, 2.0};
-    vector<double> point2 = {3.0, 4.0};
+EXPECT_TRUE(tree);
+vector<double> point1 = {1.0, 2.0};
+vector<double> point2 = {3.0, 4.0};
 
-    tree->insert(point1);
-    tree->insert(point2);
+tree->insert(point1);
+tree->insert(point2);
 
-    // No podemos verificar directamente la función inorder ya que solo imprime valores.
-    // Pero podemos verificar otros aspectos como el valor de la raíz después de las inserciones.
-    // Para un test más profundo, necesitaríamos acceso a más detalles internos o más funciones públicas.
-    EXPECT_EQ(tree->valori(0), 1.0);
-    EXPECT_FALSE(tree->empty());
+// No podemos verificar directamente la función inorder ya que solo imprime valores.
+// Pero podemos verificar otros aspectos como el valor de la raíz después de las inserciones.
+// Para un test más profundo, necesitaríamos acceso a más detalles internos o más funciones públicas.
+EXPECT_EQ(tree->valori(0), 1.0);
+EXPECT_FALSE(tree->empty());
 }
 
 // Puedes agregar más pruebas según lo necesites.
