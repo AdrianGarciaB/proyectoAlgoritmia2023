@@ -7,8 +7,7 @@ kdTree::kdTree(int k) {
 }
 
 double kdTree::valori(int i) const{
-    cout << this->root->x.empty()<< endl;
-    if (this->root->x.empty() or i >= this->root->x.size())
+    if (this->root == nullptr || this->root->x.empty() or i >= this->root->x.size())
         return -1;
     return this->root->x[i];
 }
@@ -21,18 +20,18 @@ Node* kdTree::getRoot() const{
     return this->root;
 }
 
-Node* kdTree::i_insert(Node*& root, const vector<double>& info, unsigned depth) {
-    if (root == nullptr) {
-        root = new Node(info, nullptr, nullptr);
-        return root;
+Node* kdTree::i_insert(Node*& curr, const vector<double>& info, unsigned depth) {
+    if (curr == nullptr) {
+        curr = new Node(info, nullptr, nullptr, nullptr);
+        return curr;
     }
     unsigned count_depth = depth % this->k;
-    if (info[count_depth] < root->x[count_depth]) {
-        root->left = i_insert(root->left, info, depth +1);
+    if (info[count_depth] < curr->x[count_depth]) {
+        curr->left = i_insert(curr->left, info, depth +1);
     } else {
-        root -> right = i_insert(root->right, info, depth +1);
+        curr-> right = i_insert(curr->right, info, depth +1);
     }
-    return root;
+    return curr;
 }
 
 void kdTree::insert(const vector<double>& info) {

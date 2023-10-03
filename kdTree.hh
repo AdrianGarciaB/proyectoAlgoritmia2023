@@ -16,10 +16,10 @@ struct Node {
 
     Node* left;
     Node* right;
-    BoundingBox bbox;
+    BoundingBox* bbox;
 
-    Node (const vector<double>& i, Node* l, Node* r, BoundingBox& bbox):
-        x(i), left(l), right(r) { }
+    Node(const vector<double>& i, Node* l, Node* r, BoundingBox* b):
+            x(i), left(l), right(r), bbox(b) { }
 
 };
 
@@ -33,7 +33,7 @@ class kdTree {
         static void free(Node* p);
 
         BoundingBox rootBoundingBox();
-        Node* i_insert(Node*& root, const vector<double>& info, unsigned depth);
+        Node* i_insert(Node*& currNode, const vector<double>& infoNewNode, unsigned depth);
 
         static void i_inorder(Node* root);
 
