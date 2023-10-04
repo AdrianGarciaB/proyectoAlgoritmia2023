@@ -27,8 +27,8 @@ class kdTree {
     private:
         int k; //dimensiones
         int n; //num de nodos
-
         Node* root;
+        int visitedNodes;
 
         static void free(Node* p);
 
@@ -40,7 +40,7 @@ class kdTree {
 
         Node* i_insertWithBoundingBox(Node*& root, const vector<double>& info, unsigned depth);
         Node* nearestNeighbor(Node* root, const vector<double>& queryPoint, unsigned depth, Node* bestNode, double& bestDistance);
-
+        int getVisitedNodes() const;
 
         void i_debug(Node* root);
     public:

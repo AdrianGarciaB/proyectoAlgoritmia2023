@@ -4,6 +4,7 @@ kdTree::kdTree(int k) {
     this->k = k;
     this->n = 0;
     this->root = nullptr;
+    this->visitedNodes = 0;
 }
 
 double kdTree::valori(int i) const{

@@ -39,6 +39,8 @@ Node* kdTree::nearestNeighbor(Node* root, const vector<double>& queryPoint, unsi
         otherBranch = root->left;
     }
 
+    this->visitedNodes++;
+
     // Check if the current node is closer than the best node found so far
     double currentDistance = euclideanDistance(root->x, queryPoint);
     
