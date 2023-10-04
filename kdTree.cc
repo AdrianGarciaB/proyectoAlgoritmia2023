@@ -25,9 +25,11 @@ Node* kdTree::getRoot() const{
 BoundingBox kdTree::rootBoundingBox() {
     BoundingBox rootBBox;
     int k = this->k;
+    rootBBox.minPoint = vector<double>(k);
+    rootBBox.maxPoint = vector<double>(k);
     for (int i = 0; i < k; ++i) {
-        rootBBox.minPoint.push_back(0.0); // Minimum coordinates
-        rootBBox.maxPoint.push_back(1.0); // Maximum coordinates
+        rootBBox.minPoint[k] = 0.0; // Minimum coordinates
+        rootBBox.maxPoint[k] = 1.0; // Maximum coordinates
     }
     return rootBBox;
 }

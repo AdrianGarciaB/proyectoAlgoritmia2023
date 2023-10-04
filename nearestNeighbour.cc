@@ -19,6 +19,7 @@ double euclideanDistance(const vector<double>& point1, const vector<double>& poi
         double diff = point1[i] - point2[i];
         distance += pow(diff, 2);
     }
+    //Quitar raiz (si se puede)
     return sqrt(distance);
 }
 
@@ -38,18 +39,19 @@ Node* kdTree::nearestNeighbor(Node* root, const vector<double>& queryPoint, unsi
         otherBranch = root->left;
     }
 
+    // Check if the current node is closer than the best node found so far
+    double currentDistance = euclideanDistance(root->x, queryPoint);
+    
+    if (currentDistance < bestDistance) {
+        bestNode = root;
+        bestDistance = currentDistance;
+    }
+
     // Recursively search the side of the splitting plane that the query point is on
     bestNode = nearestNeighbor(nextBranch, queryPoint, depth + 1, bestNode, bestDistance);
 
     // Calculate the absolute distance between the splitting coordinate of the search point and the current node
     double axisDistance = fabs(queryPoint[axis] - root->x[axis]);
-
-    // Check if the current node is closer than the best node found so far
-    double currentDistance = euclideanDistance(root->x, queryPoint);
-    if (currentDistance < bestDistance) {
-        bestNode = root;
-        bestDistance = currentDistance;
-    }
 
     // Check if there might be a closer point on the other side of the splitting plane
     if (axisDistance < bestDistance) {
