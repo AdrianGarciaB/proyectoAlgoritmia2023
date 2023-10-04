@@ -40,7 +40,7 @@ class kdTree {
 
         Node* i_insertWithBoundingBox(Node*& root, const vector<double>& info, unsigned depth);
         Node* nearestNeighbor(Node* root, const vector<double>& queryPoint, unsigned depth, Node* bestNode, double& bestDistance);
-        Node* findNearestNeighbor(const vector<double>& queryPoint);
+
 
         void i_debug(Node* root);
     public:
@@ -64,6 +64,8 @@ class kdTree {
 
     //Modificadoras
     void insert(const vector<double>& info);
+
+    Node* findNearestNeighbor(const vector<double>& queryPoint);
 
     //Escritura
     void inorder();

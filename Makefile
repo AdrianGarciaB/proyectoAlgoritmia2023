@@ -5,7 +5,7 @@ CXX = g++
 CXXFLAGS = -lgtest -lpthread -pedantic
 
 # Archivos fuente
-SOURCES = TestKdTree.cc kdTree.cc
+SOURCES = TestKdTree.cc kdTree.cc nearestNeighbour.cc
 
 # Nombre del archivo de salida
 TARGET = TestKDTree

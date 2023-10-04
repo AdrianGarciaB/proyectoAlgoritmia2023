@@ -75,6 +75,50 @@ EXPECT_EQ(tree->valori(0), 1.0);
 EXPECT_FALSE(tree->empty());
 }
 
+TEST_F(KDTreeTest, TestNearestNeighbour) {
+    vector<double> P1 = {0.5, 0.2};
+    vector<double> P2 = {0.6, 0.1};
+    vector<double> P3 = {0.2, 0.3};
+    vector<double> P4 = {0.6, 0.5};
+    vector<double> queryPoint = {0.3, 0.4};
+
+    tree->insert(P1);
+    tree->insert(P3);
+    tree->insert(P2);
+    tree->insert(P4);
+
+
+// Call the nearestNeighbor function
+    Node *nearest = tree->findNearestNeighbor(queryPoint);
+
+// Verify the result
+    ASSERT_TRUE(nearest != nullptr);
+    EXPECT_EQ(nearest->x[0], 0.2);
+    EXPECT_EQ(nearest->x[1], 0.3);
+}
+
+TEST_F(KDTreeTest, TestNearestNeighbour2) {
+    vector<double> P1 = {0.5, 0.2};
+    vector<double> P2 = {0.6, 0.1};
+    vector<double> P3 = {0.8, 0.3};
+    vector<double> P4 = {0.6, 0.5};
+    vector<double> queryPoint = {0.3, 0.4};
+
+    tree->insert(P1);
+    tree->insert(P3);
+    tree->insert(P2);
+    tree->insert(P4);
+
+
+// Call the nearestNeighbor function
+    Node *nearest = tree->findNearestNeighbor(queryPoint);
+
+// Verify the result
+    ASSERT_TRUE(nearest != nullptr);
+    EXPECT_EQ(nearest->x[0], 0.5);
+    EXPECT_EQ(nearest->x[1], 0.2);
+}
+
 // Puedes agregar más pruebas según lo necesites.
 
 int main(int argc, char **argv) {
