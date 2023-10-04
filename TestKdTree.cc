@@ -1,4 +1,5 @@
 #include "kdTree.hh"
+#include <memory>
 #include <gtest/gtest.h>
 
 class KDTreeTest : public ::testing::Test {
@@ -89,7 +90,7 @@ TEST_F(KDTreeTest, TestNearestNeighbour) {
 
 
 // Call the nearestNeighbor function
-    Node *nearest = tree->findNearestNeighbor(queryPoint);
+    shared_ptr<Node> nearest = tree->findNearestNeighbor(queryPoint);
 
 // Verify the result
     ASSERT_TRUE(nearest != nullptr);
@@ -111,7 +112,7 @@ TEST_F(KDTreeTest, TestNearestNeighbour2) {
 
 
 // Call the nearestNeighbor function
-    Node *nearest = tree->findNearestNeighbor(queryPoint);
+    shared_ptr<Node> nearest = tree->findNearestNeighbor(queryPoint);
 
 // Verify the result
     ASSERT_TRUE(nearest != nullptr);

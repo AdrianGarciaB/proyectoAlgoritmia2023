@@ -3,23 +3,27 @@
 
 #include <vector>
 #include <iostream>
+#include <memory>
 using namespace std;
 
+/*
 struct BoundingBox {
     vector<double> minPoint;
     vector<double> maxPoint;
 };
+*/
 
 struct Node {
     //int dim;
     vector<double> x/*(dim)*/;
 
-    Node* left;
-    Node* right;
-    BoundingBox* bbox;
+    shared_ptr<Node> left;
+    shared_ptr<Node> right;
+    int discr;
+    //BoundingBox* bbox;
 
-    Node(const vector<double>& i, Node* l, Node* r, BoundingBox* b):
-            x(i), left(l), right(r), bbox(b) { }
+    Node(const vector<double>& i, shared_ptr<Node> l, shared_ptr<Node> r/*, BoundingBox* b*/):
+            x(i), left(l), right(r)/*, bbox(b)*/ { }
 
 };
 
@@ -27,22 +31,22 @@ class kdTree {
     private:
         int k; //dimensiones
         int n; //num de nodos
-        Node* root;
+        shared_ptr<Node> root;
         int visitedNodes;
 
-        static void free(Node* p);
+        static void free(shared_ptr<Node> p);
 
-        BoundingBox rootBoundingBox();
-        Node* i_insert(Node*& currNode, const vector<double>& infoNewNode, unsigned depth);
+        //BoundingBox rootBoundingBox();
+        shared_ptr<Node> i_insert(shared_ptr<Node>& currNode, const vector<double>& infoNewNode, unsigned depth);
 
-        static void i_inorder(Node* root);
+        static void i_inorder(shared_ptr<Node> root);
 
 
-        Node* i_insertWithBoundingBox(Node*& root, const vector<double>& info, unsigned depth);
-        Node* nearestNeighbor(Node* root, const vector<double>& queryPoint, unsigned depth, Node* bestNode, double& bestDistance);
+        shared_ptr<Node> i_insertWithBoundingBox(shared_ptr<Node>& root, const vector<double>& info, unsigned depth);
+        shared_ptr<Node> nearestNeighbor(shared_ptr<Node> root, const vector<double>& queryPoint, unsigned depth, shared_ptr<Node> bestNode, double& bestDistance);
         int getVisitedNodes() const;
 
-        void i_debug(Node* root);
+        void i_debug(shared_ptr<Node> root);
     public:
 
     //Constructura
@@ -60,12 +64,12 @@ class kdTree {
     //Devuelve si el k-d Tree está vacio
     bool empty() const;
 
-    Node* getRoot() const;
+    shared_ptr<Node> getRoot() const;
 
     //Modificadoras
     void insert(const vector<double>& info);
 
-    Node* findNearestNeighbor(const vector<double>& queryPoint);
+    shared_ptr<Node> findNearestNeighbor(const vector<double>& queryPoint);
 
     //Escritura
     void inorder();

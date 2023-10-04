@@ -24,12 +24,12 @@ double euclideanDistance(const vector<double>& point1, const vector<double>& poi
 }
 
 // Recursive function to perform nearest neighbor search
-Node* kdTree::nearestNeighbor(Node* root, const vector<double>& queryPoint, unsigned depth, Node* bestNode, double& bestDistance) {
+shared_ptr<Node> kdTree::nearestNeighbor(shared_ptr<Node> root, const vector<double>& queryPoint, unsigned depth, shared_ptr<Node> bestNode, double& bestDistance) {
     if (root == nullptr) return bestNode;
 
     unsigned axis = depth % k;
-    Node* nextBranch = nullptr;
-    Node* otherBranch = nullptr;
+    shared_ptr<Node> nextBranch = nullptr;
+    shared_ptr<Node> otherBranch = nullptr;
 
     if (queryPoint[axis] < root->x[axis]) {
         nextBranch = root->left;
@@ -64,10 +64,10 @@ Node* kdTree::nearestNeighbor(Node* root, const vector<double>& queryPoint, unsi
 }
 
 // Public function to find the nearest neighbor to a query point
-Node* kdTree::findNearestNeighbor(const vector<double>& queryPoint) {
+shared_ptr<Node> kdTree::findNearestNeighbor(const vector<double>& queryPoint) {
     if (root == nullptr) return nullptr;
 
-    Node* bestNode = nullptr;
+    shared_ptr<Node> bestNode = nullptr;
     double bestDistance = MAX_DOUBLE; // Initialize with a large value
 
     return nearestNeighbor(root, queryPoint, 0, bestNode, bestDistance);

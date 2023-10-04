@@ -17,10 +17,11 @@ bool kdTree::empty() const{
     return !this->root;
 }
 
-Node* kdTree::getRoot() const{
+shared_ptr<Node> kdTree::getRoot() const{
     return this->root;
 }
 
+/*
 BoundingBox kdTree::rootBoundingBox() {
     BoundingBox rootBBox;
     int k = this->k;
@@ -32,10 +33,11 @@ BoundingBox kdTree::rootBoundingBox() {
     }
     return rootBBox;
 }
+*/
 
-Node* kdTree::i_insert(Node*& curr, const vector<double>& info, unsigned depth) {
+shared_ptr<Node> kdTree::i_insert(shared_ptr<Node>& curr, const vector<double>& info, unsigned depth) {
     if (curr == nullptr) {
-        curr = new Node(info, nullptr, nullptr, nullptr);
+        curr = make_shared<Node>(info, nullptr, nullptr/*, nullptr*/);
         return curr;
     }
     unsigned count_depth = depth % this->k;
@@ -52,7 +54,7 @@ void kdTree::insert(const vector<double>& info) {
     i_insert(root, info, 0);
 }
 
-void kdTree::i_inorder(Node* root) {
+void kdTree::i_inorder(shared_ptr<Node> root) {
     if (root == nullptr) return;
     i_inorder(root->left);
     for (double i : root->x) cout << i << " ";
@@ -68,7 +70,7 @@ void kdTree::debug() {
     i_debug(this->root);
 }
 
-void kdTree::i_debug(Node* root) {
+void kdTree::i_debug(shared_ptr<Node> root) {
     if (root != nullptr) {
         for (int i = 0; i < root->x.size(); ++i )cout << root->x[i] << " ";
         cout << endl;
@@ -79,22 +81,22 @@ void kdTree::i_debug(Node* root) {
     }
 }
 
-Node* kdTree::i_insertWithBoundingBox(Node*& root, const vector<double>& info, unsigned depth) {
+shared_ptr<Node> kdTree::i_insertWithBoundingBox(shared_ptr<Node>& root, const vector<double>& info, unsigned depth) {
         if (root == nullptr) {
-            BoundingBox rootBBox = rootBoundingBox();
-            root = new Node(info, nullptr, nullptr, &rootBBox);
-            root->bbox = &rootBBox; // Store the bounding box for this node
+            //BoundingBox rootBBox = rootBoundingBox();
+            root = make_shared<Node>(info, nullptr, nullptr/*, &rootBBox*/);
+            //root->bbox = &rootBBox; // Store the bounding box for this node
             return root;
         }
 
         unsigned axis = depth % k;
-        BoundingBox nextBBox = *root->bbox;
+        //BoundingBox nextBBox = *root->bbox;
 
         if (info[axis] < root->x[axis]) {
-            nextBBox.maxPoint[axis] = root->x[axis];
+            //nextBBox.maxPoint[axis] = root->x[axis];
             root->left = i_insertWithBoundingBox(root->left, info, depth + 1);
         } else {
-            nextBBox.minPoint[axis] = root->x[axis];
+            //nextBBox.minPoint[axis] = root->x[axis];
             root->right = i_insertWithBoundingBox(root->right, info, depth + 1);
         }
 
