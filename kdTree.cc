@@ -35,7 +35,7 @@ BoundingBox kdTree::rootBoundingBox() {
 Node* kdTree::i_insert(Node*& curr, const vector<double>& info, unsigned depth) {
     if (curr == nullptr) {
         BoundingBox rootBBox = rootBoundingBox();
-        root = new Node(info, nullptr, nullptr, rootBBox);
+        root = new Node(info, nullptr, nullptr, &rootBBox);
         return curr;
     }
     unsigned count_depth = depth % this->k;
@@ -68,13 +68,13 @@ void kdTree::inorder() {
 Node* kdTree::i_insertWithBoundingBox(Node*& root, const vector<double>& info, unsigned depth) {
         if (root == nullptr) {
             BoundingBox rootBBox = rootBoundingBox();
-            root = new Node(info, nullptr, nullptr, rootBBox);
-            root->bbox = rootBBox; // Store the bounding box for this node
+            root = new Node(info, nullptr, nullptr, &rootBBox);
+            root->bbox = &rootBBox; // Store the bounding box for this node
             return root;
         }
 
         unsigned axis = depth % k;
-        BoundingBox nextBBox = root->bbox;
+        BoundingBox nextBBox = *root->bbox;
 
         if (info[axis] < root->x[axis]) {
             nextBBox.maxPoint[axis] = root->x[axis];
