@@ -39,7 +39,8 @@ class kdTree {
 
 
         Node* i_insertWithBoundingBox(Node*& root, const vector<double>& info, unsigned depth);
-
+        Node* nearestNeighbor(Node* root, const vector<double>& queryPoint, unsigned depth, Node* bestNode, double& bestDistance);
+        Node* findNearestNeighbor(const vector<double>& queryPoint);
     public:
 
     //Constructura
