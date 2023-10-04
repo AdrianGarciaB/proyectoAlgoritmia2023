@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
+
+#include "kdTree.hh"
 using namespace std;
 
 typedef vector<double> Coord;
@@ -17,6 +19,7 @@ int main() {
 
     for(int i = 1; i <= T; ++i) {   
 
+        //QUE K NO SEA > QUE 6 PORFA
         cout << "Dimension:" << endl;
         cin >> k;
         cout << "Numero de nodos:" << endl;
@@ -35,5 +38,11 @@ int main() {
             cout << endl;
         }
         cout << endl << endl << "----------------------------------" << endl << endl;
+
+        kdTree Tree(k);
+        for (int j = 0; j < n; ++j) {
+            Tree.insert(Coords[j]);
+        }
+        Tree.debug();
     }
 }
