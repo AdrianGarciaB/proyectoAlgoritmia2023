@@ -38,7 +38,7 @@ class kdTree {
         static void free(shared_ptr<Node> p);
 
         //BoundingBox rootBoundingBox();
-        shared_ptr<Node> i_insert(shared_ptr<Node>& currNode, const vector<double>& infoNewNode, unsigned depth, char tipo);
+        shared_ptr<Node> i_insert(shared_ptr<Node>& currNode, const vector<double>& infoNewNode, unsigned depth, char tipo, BoundingBox& Bb);
 
         static void i_inorder(shared_ptr<Node> root);
 
