@@ -35,23 +35,33 @@ BoundingBox kdTree::rootBoundingBox() {
 }
 */
 
-shared_ptr<Node> kdTree::i_insert(shared_ptr<Node>& curr, const vector<double>& info, unsigned depth) {
+shared_ptr<Node> kdTree::i_insert(shared_ptr<Node>& curr, const vector<double>& info, unsigned depth, char tipo) {
     if (curr == nullptr) {
         curr = make_shared<Node>(info, nullptr, nullptr/*, nullptr*/);
         return curr;
     }
-    unsigned count_depth = depth % this->k;
-    if (info[count_depth] < curr->x[count_depth]) {
-        curr->left = i_insert(curr->left, info, depth +1);
-    } else {
-        curr-> right = i_insert(curr->right, info, depth +1);
+    unsigned disc_axis;
+    //s = standart
+    //r = relax
+    //q = sqaris
+    if (tipo == 's')  disc_axis =  depth % k;
+    else if (tipo == 'r') ;//random entre 0 - k-1
+    else {
+        ;//boundingbox
     }
+
+    if (info[disc_axis] < curr->x[disc_axis]) {
+        curr->left = i_insert(curr->left, info, depth +1, tipo);
+    } else {
+        curr-> right = i_insert(curr->right, info, depth +1, tipo);
+    }
+    curr->discr = disc_axis;
     return curr;
 }
 
-void kdTree::insert(const vector<double>& info) {
+void kdTree::insert(const vector<double>& info, char tipo) {
     ++n;
-    i_insert(root, info, 0);
+    i_insert(root, info, 0, tipo);
 }
 
 void kdTree::i_inorder(shared_ptr<Node> root) {

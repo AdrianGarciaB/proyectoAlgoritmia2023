@@ -41,7 +41,7 @@ int main() {
 
         kdTree Tree(k);
         for (int j = 0; j < n; ++j) {
-            Tree.insert(Coords[j]);
+            Tree.insert(Coords[j], 's');
         }
         Tree.debug();
     }

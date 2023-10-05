@@ -27,7 +27,8 @@ double euclideanDistance(const vector<double>& point1, const vector<double>& poi
 shared_ptr<Node> kdTree::nearestNeighbor(shared_ptr<Node> root, const vector<double>& queryPoint, unsigned depth, shared_ptr<Node> bestNode, double& bestDistance) {
     if (root == nullptr) return bestNode;
 
-    unsigned axis = depth % k;
+    unsigned axis = root->discr;
+
     shared_ptr<Node> nextBranch = nullptr;
     shared_ptr<Node> otherBranch = nullptr;
 
