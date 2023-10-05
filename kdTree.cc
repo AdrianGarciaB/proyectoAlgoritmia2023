@@ -40,7 +40,7 @@ shared_ptr<Node> kdTree::i_insert(shared_ptr<Node>& curr, const vector<double>& 
         curr = make_shared<Node>(info, nullptr, nullptr/*, nullptr*/);
         return curr;
     }
-    
+
     unsigned disc_axis;
     srand(time(NULL));
 
@@ -74,15 +74,11 @@ shared_ptr<Node> kdTree::i_insert(shared_ptr<Node>& curr, const vector<double>& 
 
 void kdTree::insert(const vector<double>& info, char tipo) {
     ++n;
+    
     BoundingBox Bb;
-    vector<double> v1(k);
-    vector<double> v2(k);
-    for (int i = 0; i < this->k; ++i) {
-        v1[i] = 0.0;
-        v2[i] = 1.0;
-    }
-    Bb.maxPoint = v2;
-    Bb.minPoint = v1;
+    Bb.minPoint = vector<double>(k, 0.0);
+    Bb.maxPoint = vector<double>(k, 1.0);
+
     i_insert(root, info, 0, tipo, Bb);
 }
 
