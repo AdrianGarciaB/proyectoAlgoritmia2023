@@ -1,6 +1,10 @@
 #include "kdTree.hh"
+#include <cstdlib>
+#include <cmath>
 #include <memory>
 #include <gtest/gtest.h>
+#include <iostream>
+using namespace std;
 
 class KDTreeTest : public ::testing::Test {
 protected:
@@ -16,6 +20,17 @@ protected:
         delete tree;
     }
 };
+
+double euclideanDistancee(const vector<double>& point1, const vector<double>& point2) {
+    double distance = 0.0;
+    for (size_t i = 0; i < point1.size(); ++i) {
+        double diff = point1[i] - point2[i];
+        distance += pow(diff, 2);
+    }
+    //Quitar raiz (si se puede)
+    return sqrt(distance);
+}
+
 
 TEST_F(KDTreeTest, TestConstructor) {
 EXPECT_TRUE(tree);
@@ -118,6 +133,43 @@ TEST_F(KDTreeTest, TestNearestNeighbour2) {
     ASSERT_TRUE(nearest != nullptr);
     EXPECT_EQ(nearest->x[0], 0.5);
     EXPECT_EQ(nearest->x[1], 0.2);
+}
+
+TEST_F(KDTreeTest, TestNearestNeighbourRandom1) {
+    srand(time(NULL));
+    vector< vector<double> > Coords;
+    for (int i = 0; i < 20; ++i) {
+        vector<double> P(2);
+        for (int j = 0; j < 2; ++j) {
+            P[j] = double(rand()/double(RAND_MAX));
+        }
+        tree->insert(P, 's');
+        Coords.push_back(P);
+    }
+    vector<double> q(2);
+    q[0] = double(rand()/double(RAND_MAX));
+    q[1] = double(rand()/double(RAND_MAX));
+
+    shared_ptr<Node> nearest = tree->findNearestNeighbor(q);
+
+    vector<double> nst = {-1.0, -1.0};
+    for (int i = 0; i < Coords.size(); ++i) {
+        if (nst[0] == -1) {
+            nst[0] = Coords[i][0];
+            nst[1] = Coords[i][1];
+        } else if (euclideanDistancee(Coords[i], q) < euclideanDistancee(nst, q)) {
+            nst[0] = Coords[i][0];
+            nst[1] = Coords[i][1];
+        }
+    }
+    // Verify the result
+    ASSERT_TRUE(nearest != nullptr);
+    EXPECT_EQ(nearest->x[0], nst[0]);
+    EXPECT_EQ(nearest->x[1], nst[1]);
+/*
+    cout << nst[0] << ' ' << nst[1] << endl;
+    cout << q[0] << ' ' << q[1] << endl;
+*/
 }
 
 // Puedes agregar más pruebas según lo necesites.
