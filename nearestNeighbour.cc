@@ -13,6 +13,7 @@ using namespace std;
 const double MAX_DOUBLE = numeric_limits<double>::max();
 
 // Helper function to calculate the Euclidean distance between two points
+
 double euclideanDistance(const vector<double>& point1, const vector<double>& point2) {
     double distance = 0.0;
     for (size_t i = 0; i < point1.size(); ++i) {

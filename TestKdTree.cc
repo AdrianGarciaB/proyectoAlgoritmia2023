@@ -135,7 +135,7 @@ TEST_F(KDTreeTest, TestNearestNeighbour2) {
     EXPECT_EQ(nearest->x[1], 0.2);
 }
 
-TEST_F(KDTreeTest, TestNearestNeighbourRandom1) {
+TEST_F(KDTreeTest, TestNearestNeighbourRandomStandart) {
     srand(time(NULL));
     vector< vector<double> > Coords;
     for (int i = 0; i < 20; ++i) {
@@ -144,6 +144,43 @@ TEST_F(KDTreeTest, TestNearestNeighbourRandom1) {
             P[j] = double(rand()/double(RAND_MAX));
         }
         tree->insert(P, 's');
+        Coords.push_back(P);
+    }
+    vector<double> q(2);
+    q[0] = double(rand()/double(RAND_MAX));
+    q[1] = double(rand()/double(RAND_MAX));
+
+    shared_ptr<Node> nearest = tree->findNearestNeighbor(q);
+
+    vector<double> nst = {-1.0, -1.0};
+    for (int i = 0; i < Coords.size(); ++i) {
+        if (nst[0] == -1) {
+            nst[0] = Coords[i][0];
+            nst[1] = Coords[i][1];
+        } else if (euclideanDistancee(Coords[i], q) < euclideanDistancee(nst, q)) {
+            nst[0] = Coords[i][0];
+            nst[1] = Coords[i][1];
+        }
+    }
+    // Verify the result
+    ASSERT_TRUE(nearest != nullptr);
+    EXPECT_EQ(nearest->x[0], nst[0]);
+    EXPECT_EQ(nearest->x[1], nst[1]);
+/*
+    cout << nst[0] << ' ' << nst[1] << endl;
+    cout << q[0] << ' ' << q[1] << endl;
+*/
+}
+
+TEST_F(KDTreeTest, TestNearestNeighbourRandomRelax) {
+    srand(time(NULL));
+    vector< vector<double> > Coords;
+    for (int i = 0; i < 20; ++i) {
+        vector<double> P(2);
+        for (int j = 0; j < 2; ++j) {
+            P[j] = double(rand()/double(RAND_MAX));
+        }
+        tree->insert(P, 'r');
         Coords.push_back(P);
     }
     vector<double> q(2);

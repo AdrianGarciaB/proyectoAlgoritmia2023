@@ -41,11 +41,12 @@ shared_ptr<Node> kdTree::i_insert(shared_ptr<Node>& curr, const vector<double>& 
         return curr;
     }
     unsigned disc_axis;
+    srand(time(NULL));
     //s = standart
     //r = relax
     //q = sqaris
     if (tipo == 's')  disc_axis =  depth % k;
-    else if (tipo == 'r') ;//random entre 0 - k-1
+    else if (tipo == 'r') disc_axis = rand() % k;
     else {
         ;//boundingbox
     }
@@ -56,6 +57,7 @@ shared_ptr<Node> kdTree::i_insert(shared_ptr<Node>& curr, const vector<double>& 
         curr-> right = i_insert(curr->right, info, depth +1, tipo);
     }
     curr->discr = disc_axis;
+    //cout << disc_axis << endl;
     return curr;
 }
 
