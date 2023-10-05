@@ -24,8 +24,8 @@ int main(int argc, char* argv[]) {
     cout << nArboles << endl;
 
     for (int i = 0; i< nArboles; ++i) {
-        int k, n, q;
-        cin >> k >> n >> q;
+        int n, k, q;
+        cin >> n >> k >> q;
         cout << q << endl;
         kdTree tree(k);
         for (int j = 0; j< n; ++j) {
