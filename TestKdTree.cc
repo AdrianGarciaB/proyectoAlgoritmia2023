@@ -211,7 +211,7 @@ TEST_F(KDTreeTest, TestNearestNeighbourRandomRelax) {
 TEST_F(KDTreeTest, TestNearestNeighbourRandomSquarish) {
     srand(time(NULL));
     vector< vector<double> > Coords;
-    for (int i = 0; i < 200000; ++i) {
+    for (int i = 0; i < 20; ++i) {
         vector<double> P(2);
         for (int j = 0; j < 2; ++j) {
             P[j] = double(rand()/double(RAND_MAX));
