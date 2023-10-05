@@ -45,10 +45,10 @@ vector<double> point2 = {0.2};
 vector<double> point3= {0.3};
 vector<double> point4= {0.4};
 vector<double> point5 = {0.5};
-tree->insert(point3, 's');
-tree->insert(point2, 's');
-tree->insert(point4, 's');
-tree->insert(point5, 's');
+tree->insert(point3, STANDART);
+tree->insert(point2, STANDART);
+tree->insert(point4, STANDART);
+tree->insert(point5, STANDART);
 EXPECT_FALSE(tree->empty());
 EXPECT_EQ(tree->getRoot()->x[0], 0.3);
 EXPECT_EQ(tree->getRoot()->left->x[0], 0.2);
@@ -64,10 +64,10 @@ vector<double> point3= {0.3};
 vector<double> point4= {0.4};
 vector<double> point5 = {0.5};
 
-tree->insert(point3, 's');
-tree->insert(point2, 's');
-tree->insert(point4, 's');
-tree->insert(point5, 's');
+tree->insert(point3, STANDART);
+tree->insert(point2, STANDART);
+tree->insert(point4, STANDART);
+tree->insert(point5, STANDART);
 EXPECT_FALSE(tree->empty());
 EXPECT_EQ(tree->getRoot()->x[0], 0.3);
 EXPECT_EQ(tree->getRoot()->left->x[0], 0.2);
@@ -80,8 +80,8 @@ EXPECT_TRUE(tree);
 vector<double> point1 = {1.0, 2.0};
 vector<double> point2 = {3.0, 4.0};
 
-tree->insert(point1, 's');
-tree->insert(point2, 's');
+tree->insert(point1, STANDART);
+tree->insert(point2, STANDART);
 
 // No podemos verificar directamente la función inorder ya que solo imprime valores.
 // Pero podemos verificar otros aspectos como el valor de la raíz después de las inserciones.
@@ -97,10 +97,10 @@ TEST_F(KDTreeTest, TestNearestNeighbour) {
     vector<double> P4 = {0.6, 0.5};
     vector<double> queryPoint = {0.3, 0.4};
 
-    tree->insert(P1, 's');
-    tree->insert(P3, 's');
-    tree->insert(P2, 's');
-    tree->insert(P4, 's');
+    tree->insert(P1, STANDART);
+    tree->insert(P3, STANDART);
+    tree->insert(P2, STANDART);
+    tree->insert(P4, STANDART);
 
 
 // Call the nearestNeighbor function
@@ -119,10 +119,10 @@ TEST_F(KDTreeTest, TestNearestNeighbour2) {
     vector<double> P4 = {0.6, 0.5};
     vector<double> queryPoint = {0.3, 0.4};
 
-    tree->insert(P1, 's');
-    tree->insert(P3, 's');
-    tree->insert(P2, 's');
-    tree->insert(P4, 's');
+    tree->insert(P1, STANDART);
+    tree->insert(P3, STANDART);
+    tree->insert(P2, STANDART);
+    tree->insert(P4, STANDART);
 
 
 // Call the nearestNeighbor function
@@ -142,7 +142,7 @@ TEST_F(KDTreeTest, TestNearestNeighbourRandomStandart) {
         for (int j = 0; j < 2; ++j) {
             P[j] = double(rand()/double(RAND_MAX));
         }
-        tree->insert(P, 's');
+        tree->insert(P, STANDART);
         Coords.push_back(P);
     }
     vector<double> q(2);
@@ -179,7 +179,7 @@ TEST_F(KDTreeTest, TestNearestNeighbourRandomRelax) {
         for (int j = 0; j < 2; ++j) {
             P[j] = double(rand()/double(RAND_MAX));
         }
-        tree->insert(P, 'r');
+        tree->insert(P, RELAX);
         Coords.push_back(P);
     }
     vector<double> q(2);
@@ -216,7 +216,7 @@ TEST_F(KDTreeTest, TestNearestNeighbourRandomSquarish) {
         for (int j = 0; j < 2; ++j) {
             P[j] = double(rand()/double(RAND_MAX));
         }
-        tree->insert(P, 'q');
+        tree->insert(P, SQUARISH);
         Coords.push_back(P);
     }
     vector<double> q(2);

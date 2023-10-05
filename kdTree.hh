@@ -7,7 +7,6 @@
 #include <cstdlib>
 using namespace std;
 
-
 struct BoundingBox {
     vector<double> minPoint;
     vector<double> maxPoint;
@@ -28,6 +27,12 @@ struct Node {
 
 };
 
+typedef enum {
+    STANDART,
+    RELAX,
+    SQUARISH,
+} TreeType;
+
 class kdTree {
     private:
         int k; //dimensiones
@@ -38,7 +43,7 @@ class kdTree {
         static void free(shared_ptr<Node> p);
 
         //BoundingBox rootBoundingBox();
-        shared_ptr<Node> i_insert(shared_ptr<Node>& currNode, const vector<double>& infoNewNode, unsigned depth, char tipo, BoundingBox& Bb);
+        shared_ptr<Node> i_insert(shared_ptr<Node>& currNode, const vector<double>& infoNewNode, unsigned depth, TreeType tipo, BoundingBox& Bb);
 
         static void i_inorder(shared_ptr<Node> root);
 
@@ -68,7 +73,7 @@ class kdTree {
     shared_ptr<Node> getRoot() const;
 
     //Modificadoras
-    void insert(const vector<double>& info, char tipo);
+    void insert(const vector<double>& info, TreeType tipo);
 
     shared_ptr<Node> findNearestNeighbor(const vector<double>& queryPoint);
 

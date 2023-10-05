@@ -35,7 +35,7 @@ BoundingBox kdTree::rootBoundingBox() {
 }
 */
 
-shared_ptr<Node> kdTree::i_insert(shared_ptr<Node>& curr, const vector<double>& info, unsigned depth, char tipo, BoundingBox& Bb) {
+shared_ptr<Node> kdTree::i_insert(shared_ptr<Node>& curr, const vector<double>& info, unsigned depth, TreeType tipo, BoundingBox& Bb) {
     if (curr == nullptr) {
         curr = make_shared<Node>(info, nullptr, nullptr/*, nullptr*/);
         return curr;
@@ -44,12 +44,9 @@ shared_ptr<Node> kdTree::i_insert(shared_ptr<Node>& curr, const vector<double>& 
     unsigned disc_axis;
     srand(time(NULL));
 
-    //s = standart
-    //r = relax
-    //q = sqaris
-    if (tipo == 's')  disc_axis =  depth % k;
-    else if (tipo == 'r') disc_axis = rand() % k;
-    else if (tipo == 'q') {
+    if (tipo == STANDART)  disc_axis =  depth % k;
+    else if (tipo == RELAX) disc_axis = rand() % k;
+    else if (tipo == SQUARISH) {
         int dist = 0; int dnt = disc_axis = 0;
         for (int i = 0; i < k; ++i) {
             dist = Bb.maxPoint[i] - Bb.minPoint[i];
@@ -72,9 +69,9 @@ shared_ptr<Node> kdTree::i_insert(shared_ptr<Node>& curr, const vector<double>& 
     return curr;
 }
 
-void kdTree::insert(const vector<double>& info, char tipo) {
+void kdTree::insert(const vector<double>& info, TreeType tipo) {
     ++n;
-    
+
     BoundingBox Bb;
     Bb.minPoint = vector<double>(k, 0.0);
     Bb.maxPoint = vector<double>(k, 1.0);
