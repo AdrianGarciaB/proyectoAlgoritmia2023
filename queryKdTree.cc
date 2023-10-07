@@ -50,12 +50,13 @@ int main(int argc, char* argv[]) {
 
     int nArboles;
     cin >> nArboles;
-    cout << nArboles << endl;
+    string result = to_string(nArboles) +"\n";
 
     for (int i = 0; i < nArboles; ++i) {
         int n, k, q;
         cin >> n >> k >> q;
-        cout << q << endl;
+        result.append(to_string(q) + "\n");
+
         kdTree tree(k);
         for (int j = 0; j < n; ++j) {
             vector<double> info(k);
@@ -72,29 +73,7 @@ int main(int argc, char* argv[]) {
                 cin >> info[w];
             shared_ptr<Node> nearestNeighbor = tree.findNearestNeighbor(info);
 
-            if (checkSolution) {
-                istringstream stream(tree.inorder());
-                string line;
-                vector<double> *nearest;
-                vector<double> currentCandidateInfo;
-                double d_nearest = -1; //Inf
-                while (getline(stream, line)) {
-                    istringstream lineStream(line);
 
-                    for (int i = 0; i < k; ++i) {
-                        double value;
-                        if (lineStream >> value) {
-                            currentCandidateInfo.push_back(value);
-                        }
-                        double d = euclideanDistancee(nearestNeighbor->x, currentCandidateInfo);
-                        if (d == -1 || d < d_nearest) {
-                            for (int w = 0; w < k; ++w) // Leemos las k coordenadas.
-                                cout << (currentCandidateInfo)[w] << " ";
-                            nearest = &currentCandidateInfo;
-                            d_nearest = d;
-                        }
-                    }
-                }
                 /*
                 if (!areExactlyEqual(*nearest, nearestNeighbor->x)) {
                     for (int w = 0; w < k; ++w)
@@ -108,19 +87,16 @@ int main(int argc, char* argv[]) {
                 }
 
             }*/
-                for (int w = 0; w < k; ++w)
-                    cout << nearestNeighbor->x[w] << " ";
-                cout << endl;
+            for (int w = 0; w < k; ++w)
+                result.append(to_string(nearestNeighbor->x[w]) + " ");
+            result.append(to_string(tree.getNodosVisitados()) + "\n");
 
             }
 
-            for (int w = 0; w < k; ++w)
-                cout << nearestNeighbor->x[w] << " ";
 
-            cout << tree.getNodosVisitados() << endl;
 
         }
-
+        cout << result << endl;
         return 0;
-    }
+
 }

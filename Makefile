@@ -2,7 +2,7 @@
 CXX = g++
 
 # Flags de compilación
-CXXFLAGS = -lgtest -lpthread -pedantic
+CXXFLAGS =  -O2
 
 # Archivos fuente
 SOURCES = kdTree.cc nearestNeighbour.cc
@@ -15,10 +15,10 @@ all: $(TARGET_TEST) generadorKdTree queryKdTree
 
 # Regla para compilar el TARGET
 $(TARGET_TEST): $(SOURCES)
-	$(CXX) TestKdTree.cc $(SOURCES) $(CXXFLAGS) -o $(TARGET_TEST)
+	$(CXX) TestKdTree.cc $(SOURCES) -lgtest -lpthread -pedantic $(CXXFLAGS) -o $(TARGET_TEST)
 
 generadorKdTree: $(SOURCES)
-	$(CXX) generadorKdTree.cc kdTree.cc $(CXXFLAGS) -o generadorKdTree
+	$(CXX) generadorKdTree.cc $(CXXFLAGS) -o generadorKdTree
 
 queryKdTree: queryKdTree.cc $(SOURCES)
 	$(CXX) queryKdTree.cc $(SOURCES) $(CXXFLAGS) -o queryKdTree
