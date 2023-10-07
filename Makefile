@@ -11,7 +11,7 @@ SOURCES = kdTree.cc nearestNeighbour.cc
 TARGET_TEST = TestKDTree
 
 # Regla por defecto
-all: $(TARGET_TEST)
+all: $(TARGET_TEST) generadorKdTree queryKdTree
 
 # Regla para compilar el TARGET
 $(TARGET_TEST): $(SOURCES)
@@ -25,4 +25,4 @@ queryKdTree: $(SOURCES)
 
 # Regla para limpiar archivos generados
 clean:
-	rm -f $(TARGET_TEST) queryKdTree
+	rm -f $(TARGET_TEST) queryKdTree generadorKdTree
