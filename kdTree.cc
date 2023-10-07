@@ -79,16 +79,19 @@ void kdTree::insert(const vector<double>& info, TreeType tipo) {
     i_insert(root, info, 0, tipo, Bb);
 }
 
-void kdTree::i_inorder(shared_ptr<Node> root) {
-    if (root == nullptr) return;
-    i_inorder(root->left);
-    for (double i : root->x) cout << i << " ";
-    cout << endl;
-    i_inorder(root->right);
+string kdTree::i_inorder(shared_ptr<Node> root) {
+    string result = "";
+    if (root == nullptr) return result;
+    result.append(i_inorder(root->left));
+    for (double i : root->x) result.append(to_string(i) + " ");
+    result.append("\n");
+    result.append(i_inorder(root->right));
+
+    return result;
 }
 
-void kdTree::inorder() {
-   i_inorder(this->root);
+string kdTree::inorder() {
+   return i_inorder(this->root);
 }
 
 void kdTree::debug() {
@@ -104,6 +107,10 @@ void kdTree::i_debug(shared_ptr<Node> root) {
         cout << "left" << endl;
         i_debug(root->left);
     }
+}
+
+int kdTree::getNodosVisitados() {
+    return this->visitedNodes;
 }
 
 /*

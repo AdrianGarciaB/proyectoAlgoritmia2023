@@ -45,7 +45,7 @@ class kdTree {
         //BoundingBox rootBoundingBox();
         shared_ptr<Node> i_insert(shared_ptr<Node>& currNode, const vector<double>& infoNewNode, unsigned depth, TreeType tipo, BoundingBox& Bb);
 
-        static void i_inorder(shared_ptr<Node> root);
+        static string i_inorder(shared_ptr<Node> root);
 
 
         shared_ptr<Node> i_insertWithBoundingBox(shared_ptr<Node>& root, const vector<double>& info, unsigned depth);
@@ -72,13 +72,15 @@ class kdTree {
 
     shared_ptr<Node> getRoot() const;
 
+    int getNodosVisitados();
+
     //Modificadoras
     void insert(const vector<double>& info, TreeType tipo);
 
     shared_ptr<Node> findNearestNeighbor(const vector<double>& queryPoint);
 
     //Escritura
-    void inorder();
+    string inorder();
     void debug();
 };
 

@@ -20,7 +20,7 @@ $(TARGET_TEST): $(SOURCES)
 generadorKdTree: $(SOURCES)
 	$(CXX) generadorKdTree.cc kdTree.cc $(CXXFLAGS) -o generadorKdTree
 
-queryKdTree: $(SOURCES)
+queryKdTree: queryKdTree.cc $(SOURCES)
 	$(CXX) queryKdTree.cc $(SOURCES) $(CXXFLAGS) -o queryKdTree
 
 # Regla para limpiar archivos generados

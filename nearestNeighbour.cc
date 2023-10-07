@@ -68,7 +68,7 @@ shared_ptr<Node> kdTree::nearestNeighbor(shared_ptr<Node> root, const vector<dou
 // Public function to find the nearest neighbor to a query point
 shared_ptr<Node> kdTree::findNearestNeighbor(const vector<double>& queryPoint) {
     if (root == nullptr) return nullptr;
-
+    this->visitedNodes = 0;
     shared_ptr<Node> bestNode = nullptr;
     double bestDistance = MAX_DOUBLE; // Initialize with a large value
 
