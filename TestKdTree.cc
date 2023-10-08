@@ -144,6 +144,7 @@ TEST_F(KDTreeTest, TestNearestNeighbourRandomStandart) {
         }
         tree->insert(P, STANDART);
         Coords.push_back(P);
+        
     }
     vector<double> q(2);
     q[0] = double(rand()/double(RAND_MAX));

@@ -20,7 +20,8 @@ double euclideanDistancee(const vector<double>& point1, const vector<double>& po
         double diff = point1[i] - point2[i];
         distance += pow(diff, 2);
     }
-    return sqrt(distance);
+    //return sqrt(distance);
+    return distance;
 }
 
 bool areExactlyEqual(const std::vector<double>& v1, const std::vector<double>& v2) {
