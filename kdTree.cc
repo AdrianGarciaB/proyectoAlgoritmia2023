@@ -7,6 +7,11 @@ kdTree::kdTree(int k) {
     this->visitedNodes = 0;
 }
 
+void kdTree::clear() {
+    root = nullptr;
+    delete this;
+}
+
 double kdTree::valori(int i) const{
     if (this->root == nullptr || this->root->x.empty() or i >= this->root->x.size())
         return -1;
@@ -20,20 +25,6 @@ bool kdTree::empty() const{
 shared_ptr<Node> kdTree::getRoot() const{
     return this->root;
 }
-
-/*
-BoundingBox kdTree::rootBoundingBox() {
-    BoundingBox rootBBox;
-    int k = this->k;
-    rootBBox.minPoint = vector<double>(k);
-    rootBBox.maxPoint = vector<double>(k);
-    for (int i = 0; i < k; ++i) {
-        rootBBox.minPoint[k] = 0.0; // Minimum coordinates
-        rootBBox.maxPoint[k] = 1.0; // Maximum coordinates
-    }
-    return rootBBox;
-}
-*/
 
 shared_ptr<Node> kdTree::i_insert(shared_ptr<Node>& curr, const vector<double>& info, unsigned depth, TreeType tipo, BoundingBox& Bb) {
     if (curr == nullptr) {
@@ -112,28 +103,3 @@ void kdTree::i_debug(shared_ptr<Node> root) {
 int kdTree::getNodosVisitados() {
     return this->visitedNodes;
 }
-
-/*
-shared_ptr<Node> kdTree::i_insertWithBoundingBox(shared_ptr<Node>& root, const vector<double>& info, unsigned depth) {
-    if (root == nullptr) {
-        //BoundingBox rootBBox = rootBoundingBox();
-        root = make_shared<Node>(info, nullptr, nullptr, &rootBBox);
-        //root->bbox = &rootBBox; // Store the bounding box for this node
-        return root;
-    }
-
-    unsigned axis = depth % k;
-    //BoundingBox nextBBox = *root->bbox;
-
-    if (info[axis] < root->x[axis]) {
-        //nextBBox.maxPoint[axis] = root->x[axis];
-        root->left = i_insertWithBoundingBox(root->left, info, depth + 1);
-    } else {
-        //nextBBox.minPoint[axis] = root->x[axis];
-        root->right = i_insertWithBoundingBox(root->right, info, depth + 1);
-    }
-
-    return root;
-}
-*/
-
