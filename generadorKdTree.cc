@@ -1,39 +1,36 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
+#include <string>
+#include <ctime>
 
 #include "kdTree.hh"
 using namespace std;
 
 typedef vector<double> Coord;
 
-int main() {
-    int T;      //num de arboles a generar
-    int k;      //dimension de cada arbol
-    int n;      //num de nodos de cada arbol
-    int q;      // num de busquedas
+int main(int argc, char* argv[]) {
+    if (argc != 5) {
+        cout << "Uso: ./programa T k n q" << endl;
+        return 1;
+    }
 
-    //cout << "Numero de arboles:" << endl;
+    int T = atoi(argv[1]);
+    int k = atoi(argv[2]);
+    int n = atoi(argv[3]);
+    int q = atoi(argv[4]);
     string result = "";
-    cin >> T;
-    result.append(to_string(T) + "\n");
-    //cout << T << endl;
 
+    result.append(to_string(T) + "\n");
     srand(time(NULL));
 
-    for(int i = 1; i <= T; ++i) {   
-
-        //QUE K NO SEA > QUE 6 PORFA
-        //cout << "Dimension:" << endl;
-        cin >> k;
-        cin >> n;
-        cin >> q;
+    for(int i = 1; i <= T; ++i) {
         result.append(to_string(n) + " " + to_string(k) +  " " + to_string(q) + "\n" );
         vector<Coord> info(n, Coord(k));
 
         for(int j = 0; j < n; ++j) {
             for(int l = 0; l < k; ++l) {
-                double val = double(rand()/double(RAND_MAX));
+                double val = double(rand())/double(RAND_MAX);
                 info[j][l] = val;
                 result.append(to_string(val) + " ");
             }
@@ -44,19 +41,14 @@ int main() {
 
         for(int j = 0; j < q; ++j) {
             for(int l = 0; l < k; ++l) {
-                double val = double(rand()/double(RAND_MAX));
+                double val = double(rand())/double(RAND_MAX);
                 searches[j][l] = val;
                 result.append(to_string(val) + " ");
             }
             result.append("\n");
         }
-        cout << result;
-        //cout << endl << endl << "----------------------------------" << endl << endl;
 
-        //kdTree Tree(k);
-        //for (int j = 0; j < n; ++j) {
-            //Tree.insert(Coords[j], STANDART);
-        //}
-        //Tree.debug();
     }
+    cout << result;
+    return 0;
 }

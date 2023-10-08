@@ -14,16 +14,8 @@ Esto nos generara los ejecutables que se usan de la siguiente manera:
 Al iniciar el generador, el programa espera por la entrada el N de arboles, el numero de nodos, las dimensiones y el numero de busquedas.
 Si queremos tambien podemos pasarle un archivo con los parametros de inicio como en el siguiente ejemplo:
 ```
-./kdTreeProgram < input.txt
+./generadorKdTree T k n q
 ```
-input.txt
-``` 
-2
-2 10 20
-3 5 1
-```
-En este caso, hay dos arboles, de K 2 dimensiones, se generan 10 nodos y 20 busquedas, hay un ejemplo en el examples/1.out.
-
 ### queryKdTree
 Este programa es el que se usa para procesar las busquedas, en el generadorKdTree generamos la entrada y la podemos guardar en un fichero para posteriormente pasarsela al queryKdTree.
 ```
