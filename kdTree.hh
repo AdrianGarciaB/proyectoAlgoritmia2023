@@ -14,16 +14,15 @@ struct BoundingBox {
 
 
 struct Node {
-    //int dim;
-    vector<double> x/*(dim)*/;
+    vector<double> x;
 
     shared_ptr<Node> left;
     shared_ptr<Node> right;
     int discr;
     //BoundingBox* bbox;
 
-    Node(const vector<double>& i, shared_ptr<Node> l, shared_ptr<Node> r/*, BoundingBox* b*/):
-            x(i), left(l), right(r)/*, bbox(b)*/ { }
+    Node(const vector<double>& i, shared_ptr<Node> l, shared_ptr<Node> r):
+            x(i), left(l), right(r) { }
 
 };
 
@@ -39,6 +38,8 @@ class kdTree {
         int n; //num de nodos
         shared_ptr<Node> root;
         int visitedNodes;
+
+        void clear();
 
         static void free(shared_ptr<Node> p);
 
@@ -59,6 +60,7 @@ class kdTree {
 
     //Crea un k-d Tree con dimension k
     kdTree(int k);
+    //~kdTree() {clear();}
 
     //Consultoras
 

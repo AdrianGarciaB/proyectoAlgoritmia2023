@@ -1,7 +1,3 @@
-//
-// Created by houda on 30/09/2023.
-//
-
 #include "kdTree.hh"
 #include <cmath> // For sqrt and pow
 #include <limits> // For numeric_limits
@@ -20,8 +16,8 @@ double euclideanDistance(const vector<double>& point1, const vector<double>& poi
         double diff = point1[i] - point2[i];
         distance += pow(diff, 2);
     }
-    //Quitar raiz (si se puede)
-    return sqrt(distance);
+    //return sqrt(distance);
+    return distance;
 }
 
 // Recursive function to perform nearest neighbor search
@@ -70,7 +66,7 @@ shared_ptr<Node> kdTree::findNearestNeighbor(const vector<double>& queryPoint) {
     if (root == nullptr) return nullptr;
     this->visitedNodes = 0;
     shared_ptr<Node> bestNode = nullptr;
-    double bestDistance = MAX_DOUBLE; // Initialize with a large value
+    double bestDistance = 2.0; // Initialize with an imposible value
 
     return nearestNeighbor(root, queryPoint, 0, bestNode, bestDistance);
 }
