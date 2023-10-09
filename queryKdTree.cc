@@ -2,9 +2,8 @@ using namespace std;
 #include <iostream>
 #include <vector>
 #include <cstring>
-#include <sstream>
 #include <cmath> // For sqrt and pow
-
+#include <omp.h>
 #include "kdTree.hh"
 
 TreeType convertStringToTreeType(const char* s) {
@@ -53,12 +52,14 @@ int main(int argc, char* argv[]) {
     cin >> nArboles;
     string result = to_string(nArboles) +"\n";
 
+    #pragma omp parallel for // Parallelizing the outer loop
     for (int i = 0; i < nArboles; ++i) {
         int n, k, q;
         cin >> n >> k >> q;
         result.append(to_string(q) + "\n");
 
         kdTree tree(k);
+        #pragma omp parallel for // Parallelizing the loop for tree insertion
         for (int j = 0; j < n; ++j) {
             vector<double> info(k);
 
@@ -67,6 +68,7 @@ int main(int argc, char* argv[]) {
 
             tree.insert(info, type);
         }
+        #pragma omp parallel for // Parallelizing the loop for nearest neighbor search
         for (int j = 0; j < q; ++j) {
             vector<double> info(k);
 

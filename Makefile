@@ -2,7 +2,7 @@
 CXX = g++
 
 # Flags de compilación
-CXXFLAGS =  -O2
+CXXFLAGS =  -std=c++11 -O2
 
 # Archivos fuente
 SOURCES = kdTree.cc nearestNeighbour.cc
@@ -21,7 +21,7 @@ generadorKdTree: $(SOURCES) generadorKdTree.cc
 	$(CXX) generadorKdTree.cc $(CXXFLAGS) -o generadorKdTree
 
 queryKdTree: queryKdTree.cc $(SOURCES)
-	$(CXX) queryKdTree.cc $(SOURCES) $(CXXFLAGS) -o queryKdTree
+	$(CXX) queryKdTree.cc $(SOURCES) $(CXXFLAGS) -fopenmp -o queryKdTree
 
 victor: victor_experimental.cc $(SOURCES)
 	$(CXX) victor_experimental.cc $(SOURCES) $(CXXFLAGS) -o victor_experimental
