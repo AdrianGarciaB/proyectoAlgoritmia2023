@@ -27,10 +27,6 @@ shared_ptr<Node> kdTree::getRoot() const{
 }
 
 shared_ptr<Node> kdTree::i_insert(shared_ptr<Node>& curr, const vector<double>& info, unsigned depth, TreeType tipo, BoundingBox& Bb) {
-    if (curr == nullptr) {
-        curr = make_shared<Node>(info, nullptr, nullptr/*, nullptr*/);
-        return curr;
-    }
 
     unsigned disc_axis;
     srand(time(NULL));
@@ -38,24 +34,32 @@ shared_ptr<Node> kdTree::i_insert(shared_ptr<Node>& curr, const vector<double>& 
     if (tipo == STANDART)  disc_axis =  depth % k;
     else if (tipo == RELAX) disc_axis = rand() % k;
     else if (tipo == SQUARISH) {
-        int dist = 0; int dnt = disc_axis = 0;
+        double dist = 0; double dnt = disc_axis = 0;
         for (int i = 0; i < k; ++i) {
+            cout << "BBmin: " << Bb.minPoint[i] << ", BBmax: " << Bb.maxPoint[i] << endl;
             dist = Bb.maxPoint[i] - Bb.minPoint[i];
-            if (dnt > dist) {
-                dist = dnt;
+            if (dist > dnt) {
+                dnt = dist;
                 disc_axis = i;
             }
         }
+        cout << "point P: " << info[0] << " " << info[1] << endl;
+        cout << "eje: " << disc_axis << ", distancia: " << dnt << endl << endl;
+    }
+
+    if (curr == nullptr) {
+        curr = make_shared<Node>(info, nullptr, nullptr/*, nullptr*/);
+        curr->discr = disc_axis;
+        return curr;
     }
 
     if (info[disc_axis] < curr->x[disc_axis]) {
-        Bb.maxPoint[disc_axis] = root->x[disc_axis];
+        Bb.maxPoint[disc_axis] = curr->x[disc_axis];
         curr->left = i_insert(curr->left, info, depth +1, tipo, Bb);
     } else {
-        Bb.minPoint[disc_axis] = root->x[disc_axis];
-        curr-> right = i_insert(curr->right, info, depth +1, tipo, Bb);
+        Bb.minPoint[disc_axis] = curr->x[disc_axis];
+        curr->right = i_insert(curr->right, info, depth +1, tipo, Bb);
     }
-    curr->discr = disc_axis;
     //cout << disc_axis << endl;
     return curr;
 }
@@ -66,7 +70,6 @@ void kdTree::insert(const vector<double>& info, TreeType tipo) {
     BoundingBox Bb;
     Bb.minPoint = vector<double>(k, 0.0);
     Bb.maxPoint = vector<double>(k, 1.0);
-
     i_insert(root, info, 0, tipo, Bb);
 }
 
@@ -82,7 +85,7 @@ string kdTree::i_inorder(shared_ptr<Node> root) {
 }
 
 string kdTree::inorder() {
-   return i_inorder(this->root);
+    return i_inorder(this->root);
 }
 
 void kdTree::debug() {

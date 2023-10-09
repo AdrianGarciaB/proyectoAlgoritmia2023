@@ -33,61 +33,61 @@ double euclideanDistancee(const vector<double>& point1, const vector<double>& po
 
 
 TEST_F(KDTreeTest, TestConstructor) {
-EXPECT_TRUE(tree);
-EXPECT_TRUE(tree->empty());
-EXPECT_EQ(tree->valori(0), -1); // Asumiendo que un árbol vacío retorna -1 para cualquier coordenada.
+    EXPECT_TRUE(tree);
+    EXPECT_TRUE(tree->empty());
+    EXPECT_EQ(tree->valori(0), -1); // Asumiendo que un árbol vacío retorna -1 para cualquier coordenada.
 }
 
 TEST_F(KDTreeTest, TestBasicK1InsertAndInorder) {
-EXPECT_TRUE(tree);
-vector<double> point1 = {0.1};
-vector<double> point2 = {0.2};
-vector<double> point3= {0.3};
-vector<double> point4= {0.4};
-vector<double> point5 = {0.5};
-tree->insert(point3, STANDART);
-tree->insert(point2, STANDART);
-tree->insert(point4, STANDART);
-tree->insert(point5, STANDART);
-EXPECT_FALSE(tree->empty());
-EXPECT_EQ(tree->getRoot()->x[0], 0.3);
-EXPECT_EQ(tree->getRoot()->left->x[0], 0.2);
-EXPECT_EQ(tree->getRoot()->right->x[0], 0.4);
-EXPECT_EQ(tree->getRoot()->right->right->x[0], 0.5);
+    EXPECT_TRUE(tree);
+    vector<double> point1 = {0.1};
+    vector<double> point2 = {0.2};
+    vector<double> point3= {0.3};
+    vector<double> point4= {0.4};
+    vector<double> point5 = {0.5};
+    tree->insert(point3, STANDART);
+    tree->insert(point2, STANDART);
+    tree->insert(point4, STANDART);
+    tree->insert(point5, STANDART);
+    EXPECT_FALSE(tree->empty());
+    EXPECT_EQ(tree->getRoot()->x[0], 0.3);
+    EXPECT_EQ(tree->getRoot()->left->x[0], 0.2);
+    EXPECT_EQ(tree->getRoot()->right->x[0], 0.4);
+    EXPECT_EQ(tree->getRoot()->right->right->x[0], 0.5);
 }
 
 TEST_F(KDTreeTest, TestBasicK2InsertAndInorder) {
-EXPECT_TRUE(tree);
-vector<double> point1 = {0.1};
-vector<double> point2 = {0.2};
-vector<double> point3= {0.3};
-vector<double> point4= {0.4};
-vector<double> point5 = {0.5};
+    EXPECT_TRUE(tree);
+    vector<double> point1 = {0.1};
+    vector<double> point2 = {0.2};
+    vector<double> point3= {0.3};
+    vector<double> point4= {0.4};
+    vector<double> point5 = {0.5};
 
-tree->insert(point3, STANDART);
-tree->insert(point2, STANDART);
-tree->insert(point4, STANDART);
-tree->insert(point5, STANDART);
-EXPECT_FALSE(tree->empty());
-EXPECT_EQ(tree->getRoot()->x[0], 0.3);
-EXPECT_EQ(tree->getRoot()->left->x[0], 0.2);
-EXPECT_EQ(tree->getRoot()->right->x[0], 0.4);
-EXPECT_EQ(tree->getRoot()->right->right->x[0], 0.5);
+    tree->insert(point3, STANDART);
+    tree->insert(point2, STANDART);
+    tree->insert(point4, STANDART);
+    tree->insert(point5, STANDART);
+    EXPECT_FALSE(tree->empty());
+    EXPECT_EQ(tree->getRoot()->x[0], 0.3);
+    EXPECT_EQ(tree->getRoot()->left->x[0], 0.2);
+    EXPECT_EQ(tree->getRoot()->right->x[0], 0.4);
+    EXPECT_EQ(tree->getRoot()->right->right->x[0], 0.5);
 }
 
 TEST_F(KDTreeTest, TestInsertAndInorder) {
-EXPECT_TRUE(tree);
-vector<double> point1 = {1.0, 2.0};
-vector<double> point2 = {3.0, 4.0};
+    EXPECT_TRUE(tree);
+    vector<double> point1 = {1.0, 2.0};
+    vector<double> point2 = {3.0, 4.0};
 
-tree->insert(point1, STANDART);
-tree->insert(point2, STANDART);
+    tree->insert(point1, STANDART);
+    tree->insert(point2, STANDART);
 
 // No podemos verificar directamente la función inorder ya que solo imprime valores.
 // Pero podemos verificar otros aspectos como el valor de la raíz después de las inserciones.
 // Para un test más profundo, necesitaríamos acceso a más detalles internos o más funciones públicas.
-EXPECT_EQ(tree->valori(0), 1.0);
-EXPECT_FALSE(tree->empty());
+    EXPECT_EQ(tree->valori(0), 1.0);
+    EXPECT_FALSE(tree->empty());
 }
 
 TEST_F(KDTreeTest, TestNearestNeighbour) {
@@ -144,7 +144,7 @@ TEST_F(KDTreeTest, TestNearestNeighbourRandomStandart) {
         }
         tree->insert(P, STANDART);
         Coords.push_back(P);
-        
+
     }
     vector<double> q(2);
     q[0] = double(rand()/double(RAND_MAX));
@@ -244,6 +244,51 @@ TEST_F(KDTreeTest, TestNearestNeighbourRandomSquarish) {
     cout << nst[0] << ' ' << nst[1] << endl;
     cout << q[0] << ' ' << q[1] << endl;
 */
+}
+
+TEST_F(KDTreeTest, TestSquarish) {
+    vector<double> P1 = {0.6, 0.4};
+    vector<double> P2 = {0.5, 0.2};
+    vector<double> P3 = {0.4, 0.7};
+    vector<double> P4 = {0.8, 0.6};
+    vector<double> P5 = {0.2, 0.1};
+    vector<double> P6 = {0.9, 0.3};
+    vector<double> P7 = {0.2, 0.8};
+
+    tree->insert(P1, SQUARISH);
+    tree->insert(P2, SQUARISH);
+    tree->insert(P3, SQUARISH);
+    tree->insert(P4, SQUARISH);
+    tree->insert(P5, SQUARISH);
+    tree->insert(P6, SQUARISH);
+    tree->insert(P7, SQUARISH);
+
+    /*
+    EXPECT_FALSE(tree->empty());
+    EXPECT_EQ(tree->getRoot()->x[0], {0.6, 0.4});
+    EXPECT_EQ(tree->getRoot()->left->x[0], {0.5, 0.2});
+    EXPECT_EQ(tree->getRoot()->right->x[0], {0.8, 0.6});
+    EXPECT_EQ(tree->getRoot()->left->left->x[0], {0.2, 0.1});
+    EXPECT_EQ(tree->getRoot()->left->right->x[0], {0.4, 0.7});
+    EXPECT_EQ(tree->getRoot()->right->left->x[0], {0.9, 0.3});
+    EXPECT_EQ(tree->getRoot()->left->right->right->x[0], {0.2, 0.8});
+    */
+
+    EXPECT_FALSE(tree->empty());
+    EXPECT_EQ(tree->getRoot()->x[0], 0.6);
+    EXPECT_EQ(tree->getRoot()->x[1], 0.4);
+    EXPECT_EQ(tree->getRoot()->left->x[0], 0.5);
+    EXPECT_EQ(tree->getRoot()->left->x[1], 0.2);
+    EXPECT_EQ(tree->getRoot()->right->x[0], 0.8);
+    EXPECT_EQ(tree->getRoot()->right->x[1], 0.6);
+    EXPECT_EQ(tree->getRoot()->left->left->x[0], 0.2);
+    EXPECT_EQ(tree->getRoot()->left->left->x[1], 0.1);
+    EXPECT_EQ(tree->getRoot()->left->right->x[0], 0.4);
+    EXPECT_EQ(tree->getRoot()->left->right->x[1], 0.7);
+    EXPECT_EQ(tree->getRoot()->right->left->x[0], 0.9);
+    EXPECT_EQ(tree->getRoot()->right->left->x[1], 0.3);
+    EXPECT_EQ(tree->getRoot()->left->right->right->x[0], 0.2);
+    EXPECT_EQ(tree->getRoot()->left->right->right->x[1], 0.8);
 }
 
 // Puedes agregar más pruebas según lo necesites.
