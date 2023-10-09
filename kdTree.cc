@@ -36,15 +36,15 @@ shared_ptr<Node> kdTree::i_insert(shared_ptr<Node>& curr, const vector<double>& 
     else if (tipo == SQUARISH) {
         double dist = 0; double dnt = disc_axis = 0;
         for (int i = 0; i < k; ++i) {
-            cout << "BBmin: " << Bb.minPoint[i] << ", BBmax: " << Bb.maxPoint[i] << endl;
+            //cout << "BBmin: " << Bb.minPoint[i] << ", BBmax: " << Bb.maxPoint[i] << endl;
             dist = Bb.maxPoint[i] - Bb.minPoint[i];
             if (dist > dnt) {
                 dnt = dist;
                 disc_axis = i;
             }
         }
-        cout << "point P: " << info[0] << " " << info[1] << endl;
-        cout << "eje: " << disc_axis << ", distancia: " << dnt << endl << endl;
+        //cout << "point P: " << info[0] << " " << info[1] << endl;
+        //cout << "eje: " << disc_axis << ", distancia: " << dnt << endl << endl;
     }
 
     if (curr == nullptr) {
