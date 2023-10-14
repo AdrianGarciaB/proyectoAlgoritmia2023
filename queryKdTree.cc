@@ -11,7 +11,8 @@ TreeType convertStringToTreeType(const char* s) {
     if (strcmp(s, "STANDART") == 0) return STANDART;
     if (strcmp(s, "RELAX") == 0) return RELAX;
     if (strcmp(s, "SQUARISH") == 0) return SQUARISH;
-    return STANDART;
+    exit(-1);
+
 }
 
 double euclideanDistancee(const vector<double>& point1, const vector<double>& point2) {
@@ -56,7 +57,7 @@ int main(int argc, char* argv[]) {
     for (int i = 0; i < nArboles; ++i) {
         int n, k, q;
         cin >> n >> k >> q;
-        result.append(to_string(q) + "\n");
+        result.append(to_string(k) + " " + to_string(q) +  + "\n");
 
         kdTree tree(k);
         for (int j = 0; j < n; ++j) {
