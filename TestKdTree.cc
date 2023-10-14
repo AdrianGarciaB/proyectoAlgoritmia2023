@@ -4,6 +4,7 @@
 #include <memory>
 #include <gtest/gtest.h>
 #include <iostream>
+#include <random>
 using namespace std;
 
 class KDTreeTest : public ::testing::Test {
@@ -136,19 +137,25 @@ TEST_F(KDTreeTest, TestNearestNeighbour2) {
 
 TEST_F(KDTreeTest, TestNearestNeighbourRandomStandart) {
     srand(time(NULL));
+    random_device myRandomDevice;
+    unsigned seed = myRandomDevice(); // para generar la "semilla"
+    uniform_real_distribution<double> Uniforme(0.0, 1.0);
+    default_random_engine RNG(seed);
+
     vector< vector<double> > Coords;
     for (int i = 0; i < 20; ++i) {
         vector<double> P(2);
         for (int j = 0; j < 2; ++j) {
-            P[j] = double(rand()/double(RAND_MAX));
+            P[j] = Uniforme(RNG); //double(rand()/double(RAND_MAX));
         }
         tree->insert(P, STANDART);
         Coords.push_back(P);
 
     }
+    tree->printBT();
     vector<double> q(2);
-    q[0] = double(rand()/double(RAND_MAX));
-    q[1] = double(rand()/double(RAND_MAX));
+    q[0] = Uniforme(RNG); //double(rand()/double(RAND_MAX));
+    q[1] = Uniforme(RNG); // double(rand()/double(RAND_MAX));
 
     shared_ptr<Node> nearest = tree->findNearestNeighbor(q);
 
@@ -174,18 +181,23 @@ TEST_F(KDTreeTest, TestNearestNeighbourRandomStandart) {
 
 TEST_F(KDTreeTest, TestNearestNeighbourRandomRelax) {
     srand(time(NULL));
+    random_device myRandomDevice;
+    unsigned seed = myRandomDevice(); // para generar la "semilla"
+    uniform_real_distribution<double> Uniforme(0.0, 1.0);
+    default_random_engine RNG(seed);
+
     vector< vector<double> > Coords;
     for (int i = 0; i < 20; ++i) {
         vector<double> P(2);
         for (int j = 0; j < 2; ++j) {
-            P[j] = double(rand()/double(RAND_MAX));
+            P[j] = Uniforme(RNG); //double(rand()/double(RAND_MAX));
         }
         tree->insert(P, RELAX);
         Coords.push_back(P);
     }
     vector<double> q(2);
-    q[0] = double(rand()/double(RAND_MAX));
-    q[1] = double(rand()/double(RAND_MAX));
+    q[0] = Uniforme(RNG); //double(rand()/double(RAND_MAX));
+    q[1] = Uniforme(RNG); //double(rand()/double(RAND_MAX));
 
     shared_ptr<Node> nearest = tree->findNearestNeighbor(q);
 
@@ -211,18 +223,23 @@ TEST_F(KDTreeTest, TestNearestNeighbourRandomRelax) {
 
 TEST_F(KDTreeTest, TestNearestNeighbourRandomSquarish) {
     srand(time(NULL));
+    random_device myRandomDevice;
+    unsigned seed = myRandomDevice(); // para generar la "semilla"
+    uniform_real_distribution<double> Uniforme(0.0, 1.0);
+    default_random_engine RNG(seed);
+
     vector< vector<double> > Coords;
     for (int i = 0; i < 20; ++i) {
         vector<double> P(2);
         for (int j = 0; j < 2; ++j) {
-            P[j] = double(rand()/double(RAND_MAX));
+            P[j] = Uniforme(RNG); //double(rand()/double(RAND_MAX));
         }
         tree->insert(P, SQUARISH);
         Coords.push_back(P);
     }
     vector<double> q(2);
-    q[0] = double(rand()/double(RAND_MAX));
-    q[1] = double(rand()/double(RAND_MAX));
+    q[0] = Uniforme(RNG); //double(rand()/double(RAND_MAX));
+    q[1] = Uniforme(RNG); //double(rand()/double(RAND_MAX));
 
     shared_ptr<Node> nearest = tree->findNearestNeighbor(q);
 

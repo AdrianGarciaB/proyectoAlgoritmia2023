@@ -54,7 +54,7 @@ shared_ptr<Node> kdTree::nearestNeighbor(shared_ptr<Node> root, const vector<dou
     double axisDistance = fabs(queryPoint[axis] - root->x[axis]);
 
     // Check if there might be a closer point on the other side of the splitting plane
-    if (axisDistance < bestDistance) {
+    if (axisDistance*axisDistance < bestDistance) {
         bestNode = nearestNeighbor(otherBranch, queryPoint, depth + 1, bestNode, bestDistance);
     }
 
