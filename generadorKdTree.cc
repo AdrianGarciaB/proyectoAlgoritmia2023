@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
             tree.insert(info[j], STANDART);
             result.append("\n");
         }
-        tree.printBT();
+        //tree.printBT();
         result.append("\n");
         vector<Coord> searches(q, Coord(k));
 
