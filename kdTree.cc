@@ -7,11 +7,6 @@ kdTree::kdTree(int k) {
     this->visitedNodes = 0;
 }
 
-void kdTree::clear() {
-    root = nullptr;
-    delete this;
-}
-
 double kdTree::valori(int i) const{
     if (this->root == nullptr || this->root->x.empty() or i >= this->root->x.size())
         return -1;
@@ -43,8 +38,6 @@ shared_ptr<Node> kdTree::i_insert(shared_ptr<Node>& curr, const vector<double>& 
                 disc_axis = i;
             }
         }
-        //cout << "point P: " << info[0] << " " << info[1] << endl;
-        //cout << "eje: " << disc_axis << ", distancia: " << dnt << endl << endl;
     }
 
     if (curr == nullptr) {
@@ -73,6 +66,7 @@ void kdTree::insert(const vector<double>& info, TreeType tipo) {
     i_insert(root, info, 0, tipo, Bb);
 }
 
+
 string kdTree::i_inorder(shared_ptr<Node> root) {
     string result = "";
     if (root == nullptr) return result;
@@ -88,21 +82,26 @@ string kdTree::inorder() {
     return i_inorder(this->root);
 }
 
-void kdTree::debug() {
-    i_debug(this->root);
-}
-
-void kdTree::i_debug(shared_ptr<Node> root) {
-    if (root != nullptr) {
-        for (int i = 0; i < root->x.size(); ++i )cout << root->x[i] << " ";
-        cout << endl;
-        cout << "right" << endl;
-        i_debug(root->right);
-        cout << "left" << endl;
-        i_debug(root->left);
-    }
-}
-
-int kdTree::getNodosVisitados() {
+int kdTree::getVisitedNodes() const {
     return this->visitedNodes;
+}
+
+void kdTree::printBT() {
+    printBT("", root, false);
+}
+
+void kdTree::printBT(const string& prefix, const shared_ptr<Node> node, bool isLeft) {
+
+    if (node != nullptr)
+    {
+        std::cout << prefix;
+        std::cout << (isLeft ? "|--" : "L--");
+        // print the value of the node
+        std::cout << node->discr;
+        for (int i : node->x) cout << ' ' << node->x[node->discr];
+        cout << std::endl;
+        // enter the next tree level - left and right branch
+        printBT(prefix + (isLeft ? "|   " : "    "), node->right, true);
+        printBT(prefix + (isLeft ? "|   " : "    "), node->left, false);
+    }
 }

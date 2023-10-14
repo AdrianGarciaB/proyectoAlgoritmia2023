@@ -19,7 +19,6 @@ struct Node {
     shared_ptr<Node> left;
     shared_ptr<Node> right;
     int discr;
-    //BoundingBox* bbox;
 
     Node(const vector<double>& i, shared_ptr<Node> l, shared_ptr<Node> r):
             x(i), left(l), right(r) { }
@@ -39,28 +38,24 @@ class kdTree {
         shared_ptr<Node> root;
         int visitedNodes;
 
-        void clear();
 
         static void free(shared_ptr<Node> p);
 
-        //BoundingBox rootBoundingBox();
         shared_ptr<Node> i_insert(shared_ptr<Node>& currNode, const vector<double>& infoNewNode, unsigned depth, TreeType tipo, BoundingBox& Bb);
 
         static string i_inorder(shared_ptr<Node> root);
 
 
-        shared_ptr<Node> i_insertWithBoundingBox(shared_ptr<Node>& root, const vector<double>& info, unsigned depth);
         shared_ptr<Node> nearestNeighbor(shared_ptr<Node> root, const vector<double>& queryPoint, unsigned depth, shared_ptr<Node> bestNode, double& bestDistance);
-        int getVisitedNodes() const;
 
-        void i_debug(shared_ptr<Node> root);
+        //void i_debug(shared_ptr<Node> root);
+        void printBT(const string& prefix, const shared_ptr<Node> node, bool isLeft);
     public:
 
     //Constructura
 
     //Crea un k-d Tree con dimension k
     kdTree(int k);
-    //~kdTree() {clear();}
 
     //Consultoras
 
@@ -68,6 +63,8 @@ class kdTree {
     //Pre:  0 <= i < k
     //Post: root[i]
     double valori(int i) const;
+
+    int getVisitedNodes() const;
 
     //Devuelve si el k-d Tree está vacio
     bool empty() const;
@@ -83,7 +80,8 @@ class kdTree {
 
     //Escritura
     string inorder();
-    void debug();
+    void printBT();
+
 };
 
 #endif

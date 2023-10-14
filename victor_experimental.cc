@@ -9,7 +9,6 @@ using namespace std;
 
 int main () {
 
-    
     //Generador random
     random_device myRandomDevice;
     unsigned seed = myRandomDevice(); // para generar la "semilla"
@@ -26,7 +25,7 @@ int main () {
         for (int kk = 2; kk <= 6; ++kk){
 
             //Numero de arboles por cada dimension
-            for (int nArboles = 0; nArboles < 100; ++nArboles) {
+            for (int nArboles = 0; nArboles < 1000; ++nArboles) {
 
                 kdTree treeS(kk);
                 kdTree treeR(kk);

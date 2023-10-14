@@ -18,7 +18,7 @@ $(TARGET_TEST): $(SOURCES)
 	$(CXX) TestKdTree.cc $(SOURCES) -lgtest -lpthread -pedantic $(CXXFLAGS) -o $(TARGET_TEST)
 
 generadorKdTree: $(SOURCES) generadorKdTree.cc
-	$(CXX) generadorKdTree.cc $(CXXFLAGS) -o generadorKdTree
+	$(CXX) generadorKdTree.cc $(SOURCES) $(CXXFLAGS) -o generadorKdTree
 
 queryKdTree: queryKdTree.cc $(SOURCES)
 	$(CXX) queryKdTree.cc $(SOURCES) $(CXXFLAGS) -o queryKdTree
