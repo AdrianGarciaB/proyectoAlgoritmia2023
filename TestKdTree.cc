@@ -9,12 +9,10 @@ using namespace std;
 class KDTreeTest : public ::testing::Test {
 protected:
     kdTree* tree;
-    kdTree* treee;
 
     // Esta función se ejecuta antes de cada prueba
     virtual void SetUp() {
         tree = new kdTree(2); // Creando un árbol de 2 dimensiones como ejemplo.
-        treee = new kdTree(6);
     }
 
     // Esta función se ejecuta después de cada prueba
@@ -51,7 +49,6 @@ TEST_F(KDTreeTest, TestBasicK1InsertAndInorder) {
     tree->insert(point2, STANDART);
     tree->insert(point4, STANDART);
     tree->insert(point5, STANDART);
-    tree->printBT();
     EXPECT_FALSE(tree->empty());
     EXPECT_EQ(tree->getRoot()->x[0], 0.3);
     EXPECT_EQ(tree->getRoot()->left->x[0], 0.2);
@@ -71,9 +68,6 @@ TEST_F(KDTreeTest, TestBasicK2InsertAndInorder) {
     tree->insert(point2, STANDART);
     tree->insert(point4, STANDART);
     tree->insert(point5, STANDART);
-
-    tree->printBT();
-
     EXPECT_FALSE(tree->empty());
     EXPECT_EQ(tree->getRoot()->x[0], 0.3);
     EXPECT_EQ(tree->getRoot()->left->x[0], 0.2);
@@ -108,8 +102,6 @@ TEST_F(KDTreeTest, TestNearestNeighbour) {
     tree->insert(P2, STANDART);
     tree->insert(P4, STANDART);
 
-    tree->printBT();
-
 
 // Call the nearestNeighbor function
     shared_ptr<Node> nearest = tree->findNearestNeighbor(queryPoint);
@@ -132,8 +124,6 @@ TEST_F(KDTreeTest, TestNearestNeighbour2) {
     tree->insert(P2, STANDART);
     tree->insert(P4, STANDART);
 
-    tree->printBT();
-
 
 // Call the nearestNeighbor function
     shared_ptr<Node> nearest = tree->findNearestNeighbor(queryPoint);
@@ -148,25 +138,19 @@ TEST_F(KDTreeTest, TestNearestNeighbourRandomStandart) {
     srand(time(NULL));
     vector< vector<double> > Coords;
     for (int i = 0; i < 20; ++i) {
-        vector<double> P(6);
-        for (int j = 0; j < 6; ++j) {
+        vector<double> P(2);
+        for (int j = 0; j < 2; ++j) {
             P[j] = double(rand()/double(RAND_MAX));
         }
-        treee->insert(P, STANDART);
+        tree->insert(P, STANDART);
         Coords.push_back(P);
 
     }
-    vector<double> q(6);
+    vector<double> q(2);
     q[0] = double(rand()/double(RAND_MAX));
     q[1] = double(rand()/double(RAND_MAX));
-    q[2] = double(rand()/double(RAND_MAX));
-    q[3] = double(rand()/double(RAND_MAX));
-    q[4] = double(rand()/double(RAND_MAX));
-    q[5] = double(rand()/double(RAND_MAX));
 
-    treee->printBT();
-
-    shared_ptr<Node> nearest = treee->findNearestNeighbor(q);
+    shared_ptr<Node> nearest = tree->findNearestNeighbor(q);
 
     vector<double> nst = {-1.0, -1.0};
     for (int i = 0; i < Coords.size(); ++i) {
@@ -205,8 +189,6 @@ TEST_F(KDTreeTest, TestNearestNeighbourRandomRelax) {
 
     shared_ptr<Node> nearest = tree->findNearestNeighbor(q);
 
-    tree->printBT();
-
     vector<double> nst = {-1.0, -1.0};
     for (int i = 0; i < Coords.size(); ++i) {
         if (nst[0] == -1) {
@@ -243,8 +225,6 @@ TEST_F(KDTreeTest, TestNearestNeighbourRandomSquarish) {
     q[1] = double(rand()/double(RAND_MAX));
 
     shared_ptr<Node> nearest = tree->findNearestNeighbor(q);
-
-    tree->printBT();
 
     vector<double> nst = {-1.0, -1.0};
     for (int i = 0; i < Coords.size(); ++i) {
