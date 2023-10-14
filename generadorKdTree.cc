@@ -49,7 +49,7 @@ int main(int argc, char* argv[]) {
 
         for(int j = 0; j < q; ++j) {
             for(int l = 0; l < k; ++l) {
-                double val = double(rand())/double(RAND_MAX);
+                double val = Uniforme(RNG);//double(rand())/double(RAND_MAX);
                 searches[j][l] = val;
                 result.append(to_string(val) + " ");
             }
