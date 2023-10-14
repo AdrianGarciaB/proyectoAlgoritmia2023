@@ -57,6 +57,6 @@ int main(int argc, char* argv[]) {
         }
 
     }
-    //cout << result;
+    cout << result;
     return 0;
 }
