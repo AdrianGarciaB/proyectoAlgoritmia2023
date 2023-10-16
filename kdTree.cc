@@ -1,10 +1,12 @@
 #include "kdTree.hh"
-
+#include <ctime>
 kdTree::kdTree(int k) {
     this->k = k;
     this->n = 0;
     this->root = nullptr;
     this->visitedNodes = 0;
+    cout << time(NULL) << endl;
+    srand(time(NULL));
 }
 
 double kdTree::valori(int i) const{
@@ -22,35 +24,32 @@ shared_ptr<Node> kdTree::getRoot() const{
 }
 
 shared_ptr<Node> kdTree::i_insert(shared_ptr<Node>& curr, const vector<double>& info, unsigned depth, TreeType tipo, BoundingBox& Bb) {
+    if (curr == nullptr) {
+        unsigned disc_axis;
 
-    unsigned disc_axis;
-    srand(time(NULL));
-
-    if (tipo == STANDART)  disc_axis =  depth % k;
-    else if (tipo == RELAX) disc_axis = rand() % k;
-    else if (tipo == SQUARISH) {
-        double dist = 0; double dnt = disc_axis = 0;
-        for (int i = 0; i < k; ++i) {
-            //cout << "BBmin: " << Bb.minPoint[i] << ", BBmax: " << Bb.maxPoint[i] << endl;
-            dist = Bb.maxPoint[i] - Bb.minPoint[i];
-            if (dist > dnt) {
-                dnt = dist;
-                disc_axis = i;
+        if (tipo == STANDART)  disc_axis =  depth % k;
+        else if (tipo == RELAX) disc_axis = rand() % k;
+        else if (tipo == SQUARISH) {
+            double dist = 0; double dnt = disc_axis = 0;
+            for (int i = 0; i < k; ++i) {
+                //cout << "BBmin: " << Bb.minPoint[i] << ", BBmax: " << Bb.maxPoint[i] << endl;
+                dist = Bb.maxPoint[i] - Bb.minPoint[i];
+                if (dist > dnt) {
+                    dnt = dist;
+                    disc_axis = i;
+                }
             }
         }
-    }
-
-    if (curr == nullptr) {
         curr = make_shared<Node>(info, nullptr, nullptr/*, nullptr*/);
         curr->discr = disc_axis;
         return curr;
     }
 
-    if (info[disc_axis] < curr->x[disc_axis]) {
-        Bb.maxPoint[disc_axis] = curr->x[disc_axis];
+    if (info[curr->discr] < curr->x[curr->discr]) {
+        Bb.maxPoint[curr->discr] = curr->x[curr->discr];
         curr->left = i_insert(curr->left, info, depth +1, tipo, Bb);
     } else {
-        Bb.minPoint[disc_axis] = curr->x[disc_axis];
+        Bb.minPoint[curr->discr] = curr->x[curr->discr];
         curr->right = i_insert(curr->right, info, depth +1, tipo, Bb);
     }
     //cout << disc_axis << endl;
