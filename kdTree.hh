@@ -26,8 +26,8 @@ struct Node {
 };
 
 typedef enum {
-    STANDART,
-    RELAX,
+    STANDARD,
+    RELAXED,
     SQUARISH,
 } TreeType;
 
@@ -38,13 +38,7 @@ class kdTree {
         shared_ptr<Node> root;
         int visitedNodes;
 
-
-        static void free(shared_ptr<Node> p);
-
         shared_ptr<Node> i_insert(shared_ptr<Node>& currNode, const vector<double>& infoNewNode, unsigned depth, TreeType tipo, BoundingBox& Bb);
-
-        static string i_inorder(shared_ptr<Node> root);
-
 
         shared_ptr<Node> nearestNeighbor(shared_ptr<Node> root, const vector<double>& queryPoint, unsigned depth, shared_ptr<Node> bestNode, double& bestDistance);
 
@@ -64,6 +58,7 @@ class kdTree {
     //Post: root[i]
     double valori(int i) const;
 
+    //Devuelve el valor de nodos visitados de un arbol despues de hacer un busqueda
     int getVisitedNodes() const;
 
     //Devuelve si el k-d Tree está vacio
@@ -79,7 +74,6 @@ class kdTree {
     shared_ptr<Node> findNearestNeighbor(const vector<double>& queryPoint);
 
     //Escritura
-    string inorder();
     void printBT();
 
 };

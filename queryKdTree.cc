@@ -8,8 +8,8 @@ using namespace std;
 #include "kdTree.hh"
 
 TreeType convertStringToTreeType(const char* s) {
-    if (strcmp(s, "STANDART") == 0) return STANDART;
-    if (strcmp(s, "RELAX") == 0) return RELAX;
+    if (strcmp(s, "STANDARD") == 0) return STANDARD;
+    if (strcmp(s, "RELAXED") == 0) return RELAXED;
     if (strcmp(s, "SQUARISH") == 0) return SQUARISH;
     exit(-1);
 

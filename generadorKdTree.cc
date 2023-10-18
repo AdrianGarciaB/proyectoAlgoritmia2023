@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
                 info[j][l] = val;
                 result.append(to_string(val) + " ");
             }
-            tree.insert(info[j], STANDART);
+            tree.insert(info[j], STANDARD);
             result.append("\n");
         }
         //tree.printBT();

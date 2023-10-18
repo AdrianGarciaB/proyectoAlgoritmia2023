@@ -27,8 +27,8 @@ shared_ptr<Node> kdTree::i_insert(shared_ptr<Node>& curr, const vector<double>& 
     if (curr == nullptr) {
         unsigned disc_axis;
 
-        if (tipo == STANDART)  disc_axis =  depth % k;
-        else if (tipo == RELAX) disc_axis = rand() % k;
+        if (tipo == STANDARD)  disc_axis =  depth % k;
+        else if (tipo == RELAXED) disc_axis = rand() % k;
         else if (tipo == SQUARISH) {
             double dist = 0; double dnt = disc_axis = 0;
             for (int i = 0; i < k; ++i) {
@@ -63,22 +63,6 @@ void kdTree::insert(const vector<double>& info, TreeType tipo) {
     Bb.minPoint = vector<double>(k, 0.0);
     Bb.maxPoint = vector<double>(k, 1.0);
     i_insert(root, info, 0, tipo, Bb);
-}
-
-
-string kdTree::i_inorder(shared_ptr<Node> root) {
-    string result = "";
-    if (root == nullptr) return result;
-    result.append(i_inorder(root->left));
-    for (double i : root->x) result.append(to_string(i) + " ");
-    result.append("\n");
-    result.append(i_inorder(root->right));
-
-    return result;
-}
-
-string kdTree::inorder() {
-    return i_inorder(this->root);
 }
 
 int kdTree::getVisitedNodes() const {
