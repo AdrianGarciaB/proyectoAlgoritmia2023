@@ -23,9 +23,6 @@ generadorKdTree: $(SOURCES) generadorKdTree.cc
 queryKdTree: queryKdTree.cc $(SOURCES)
 	$(CXX) queryKdTree.cc $(SOURCES) $(CXXFLAGS) -o queryKdTree
 
-victor: victor_experimental.cc $(SOURCES)
-	$(CXX) victor_experimental.cc $(SOURCES) $(CXXFLAGS) -o victor_experimental
-
 # Regla para limpiar archivos generados
 clean:
 	rm -f $(TARGET_TEST) queryKdTree generadorKdTree victor_experimental
